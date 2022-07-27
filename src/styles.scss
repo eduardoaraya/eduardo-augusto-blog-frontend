@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// regular style toast
+@import '~ngx-toastr/toastr';
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+// @import '~ngx-toastr/toastr-bs4-alert';
+// if you'd like to use it without importing all of bootstrap it requires
+// @import '~bootstrap/scss/functions';
+// @import '~bootstrap/scss/variables';
+// @import '~bootstrap/scss/mixins';
+// @import '~ngx-toastr/toastr-bs4-alert';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&family=Zilla+Slab&display=swap');
+
+html, body {
+    font-size: 16px;
+    line-height: 36px;
+    color: #696969;
+    height: 100%;
+}
+
+p, span, li, a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Zilla Slab', monospace;
+    font-size: 1em;
+}
+
+$banner-height-default: 450px;
+
+.banner {
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-color: #EFEFEF;
+    background-attachment: inherit;
+    height: $banner-height-default;
+    background-repeat: no-repeat;
+    &.banner-top {
+        background-position: center;
+        background-image: url(/assets/banner1.jpg);
+        background-size: cover;
+        @media (min-width: 990px) {
+            height: 750px;
+        }
+    }
+    &:before {
+        position: absolute;
+        display: block;
+        top:0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        opacity: .7;
+        background-color: rgba(20, 20, 20, .7);
+    }
+}
+
+input {
+    padding: 0 5px;
+    &:focus {
+        outline: none;
+    }
+}
+
+button {
+    transition: .3s;
+    &:disabled {
+        background: #DDD;
+    }
+}

@@ -1,0 +1,50 @@
+<div class="md:container mx-auto md:py-[105px] sm:py-[75px]">
+  <div class="w-full">
+    <h2 class="text-3xl font-bold text-center">Serviços</h2>
+  </div>
+  <div class="py-20 pt-5">
+    <div class="col-12">
+      <div class="flex flex-col mt-5">
+        <ng-container *ngFor="let service of serviceList">
+          <div class="flex sm:flex-col md:flex-row mt-20 sm:px-3">
+            <div class="md:w-5/6 relative sm:p-5">
+              <h3 class="text-3xl font-bold sm:mb-[45px]">
+                {{ service.title }}
+              </h3>
+              <div class="flex justify-center items-center h-full">
+                <div
+                  *ngFor="let item of service.items"
+                  class="transition cursor-pointer md:pr-[105px] md:pb-[105px]"
+                  [ngClass]="{
+                    hidden: service.active !== item.title
+                  }"
+                >
+                  <p class="text-xl">
+                    {{ item.content }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full">
+              <div class="flex md:flex-col sm:flex-col md:py-[70px]">
+                <div
+                  *ngFor="let item of service.items"
+                  (click)="active(service, item)"
+                  class="md:my-5 sm:my-1 p-5 w-full flex flex-row border-2 border-gray-700 hover:bg-gray-700 hover:text-white transition cursor-pointer shadow"
+                  [ngClass]="{
+                    'bg-gray-700': service.active === item.title,
+                    'text-white': service.active === item.title
+                  }"
+                >
+                  <h4 class="flex-1 font-bold text-xl w-full">
+                    {{ item.title }}
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
