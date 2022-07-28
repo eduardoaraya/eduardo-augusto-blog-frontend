@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { CategoryInterface } from 'src/app/http/interfaces/category.interface';
 import { BlogService } from 'src/app/http/services/blog/blog.service';
 import { CategoryService } from 'src/app/http/services/category/category.service';
@@ -16,7 +16,7 @@ export class FormPostComponent implements OnInit {
   form = this.formBuilder.group({
     postId: [null],
     title: [null, Validators.required],
-    url: [null, Validators.required],
+    url: [{ value: null, disabled: true }, Validators.required],
     shortDescription: [null, Validators.required],
     postContent: [null, Validators.required],
     published: [null],
@@ -28,6 +28,7 @@ export class FormPostComponent implements OnInit {
     editable: true,
   };
   categoriesOptions: CategoryInterface[] = [];
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,10 +42,18 @@ export class FormPostComponent implements OnInit {
     this.listCategories();
 
     if (postId) {
-      this.blogService.getPostById(+postId).subscribe((res) => {
-        this.form.patchValue({ ...res.data, postId: res.data.id });
-      });
+      this.toggleLoading();
+      this.blogService
+        .getPostById(+postId)
+        .pipe(finalize(() => this.toggleLoading()))
+        .subscribe((res) => {
+          this.form.patchValue({ ...res.data, postId: res.data.id });
+        });
     }
+  }
+
+  toggleLoading(): void {
+    this.loading = !this.loading;
   }
 
   getTitle() {
@@ -54,11 +63,19 @@ export class FormPostComponent implements OnInit {
   }
 
   async submit(): Promise<void> {
-    const postId = +this.form.get('postId')?.value;
-    const { url, ...body } = this.form.getRawValue();
-
-    if (postId) this.blogService.updatePost(+postId, body).subscribe();
-    else this.blogService.createPost(body).subscribe();
+    if (this.form.invalid) return;
+    const { postId, url, ...body } = this.form.getRawValue();
+    this.toggleLoading();
+    if (postId)
+      this.blogService
+        .updatePost(+postId, body)
+        .pipe(finalize(() => this.toggleLoading()))
+        .subscribe();
+    else
+      this.blogService
+        .createPost(body)
+        .pipe(finalize(() => this.toggleLoading()))
+        .subscribe();
   }
 
   listCategories(): void {

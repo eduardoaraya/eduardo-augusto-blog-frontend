@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
 import { CategoryInterface } from 'src/app/http/interfaces/category.interface';
 import { CategoryService } from 'src/app/http/services/category/category.service';
 import { GridRowInterface } from 'src/app/shared/grid/grid-model';
@@ -12,6 +13,7 @@ export class AdminCategoryComponent implements OnInit {
   categories: CategoryInterface[] = [];
 
   category: CategoryInterface | null = null;
+  loading: boolean = false;
 
   constructor(private categoryService: CategoryService) {}
 
@@ -30,11 +32,19 @@ export class AdminCategoryComponent implements OnInit {
       ? this.categoryService.update(data)
       : this.categoryService.create(data);
 
-    action.subscribe(() => this.getCategories());
+    this.toggleLoading();
+    action
+      .pipe(finalize(() => this.toggleLoading()))
+      .subscribe(() => this.getCategories());
+
     this.selectData(null);
   }
 
   selectData(data: CategoryInterface | null) {
     this.category = data;
+  }
+
+  toggleLoading(): void {
+    this.loading = !this.loading;
   }
 }

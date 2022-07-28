@@ -1,6 +1,6 @@
 <app-template [menu]="{ fixed: true, animation: false, bgblack: true }">
   <div class="bg-black h-[90px]"></div>
-  <div class="blog-wrapper pt-[150px]">
+  <div class="blog-wrapper pt-[150px] min-h-[700px]">
     <div class="container mx-auto">
       <div class="grid grid-cols-4">
         <div class="w-full">
@@ -11,6 +11,9 @@
             <app-blog-post [post]="post"></app-blog-post>
           </div>
         </div>
+      </div>
+      <div *ngIf="!post && loading">
+        <img src="assets/spinner.gif" width="60px" class="m-auto" />
       </div>
     </div>
   </div>

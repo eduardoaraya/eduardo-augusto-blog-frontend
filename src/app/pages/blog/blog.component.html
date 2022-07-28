@@ -12,8 +12,11 @@
               *ngFor="let item of list"
               [post]="item"
             ></app-blog-card>
-            <div *ngIf="!list.length">
+            <div *ngIf="!list.length && !loading">
               <h4 class="text-center">Não há conteúdo disponível no momento</h4>
+            </div>
+            <div *ngIf="loading">
+              <img src="assets/spinner.gif" width="60px" class="m-auto" />
             </div>
           </div>
         </div>

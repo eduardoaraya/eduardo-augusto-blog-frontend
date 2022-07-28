@@ -1,0 +1,10 @@
+.whatsapp-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    opacity: .4;
+    transition: .3s;
+    &:hover {
+        opacity: 1;
+    }
+}

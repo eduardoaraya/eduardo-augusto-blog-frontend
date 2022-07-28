@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, tap } from 'rxjs';
+import { finalize, Subscription, tap } from 'rxjs';
 import { PostInterface } from 'src/app/http/interfaces/post.interface';
 import { BlogService } from 'src/app/http/services/blog/blog.service';
 
@@ -12,6 +12,7 @@ import { BlogService } from 'src/app/http/services/blog/blog.service';
 export class BlogPageComponent implements OnInit, OnDestroy {
   list: PostInterface[] = [];
   routerSubscription: Subscription | null = null;
+  loading: boolean = false;
 
   constructor(
     private blogService: BlogService,
@@ -26,9 +27,17 @@ export class BlogPageComponent implements OnInit, OnDestroy {
           categoryId && categoryId !== 0
             ? this.getListByCategory(categoryId)
             : this.getList();
-        serviceListing.subscribe((res) => (this.list = res.data));
+
+        this.toggleLoading();
+        serviceListing
+          .pipe(finalize(() => this.toggleLoading()))
+          .subscribe((res) => (this.list = res.data));
       }
     );
+  }
+
+  toggleLoading(): void {
+    this.loading = !this.loading;
   }
 
   ngOnDestroy(): void {
