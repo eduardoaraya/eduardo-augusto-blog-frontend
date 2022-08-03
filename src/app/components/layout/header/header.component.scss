@@ -20,7 +20,7 @@
                     font-weight: bold;
                     transition: .3s;
                     border-bottom: solid 1px transparent;
-                    &:hover {
+                    &:hover, &.is-active {
                         border-bottom: solid 1px #BBB;
                     }
                 }

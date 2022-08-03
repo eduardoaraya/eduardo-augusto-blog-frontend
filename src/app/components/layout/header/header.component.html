@@ -10,16 +10,40 @@
   <div class="sm:hidden md:block md:container mx-auto w-full flex-1">
     <div class="flex-1 h-full flex flex-row justify-between items-center">
       <div class="logo">
-        <a routerLink="/"
+        <a [routerLink]="['/']"
           ><img src="/assets/short-logo.png" class="max-w-[75px] h-full"
         /></a>
       </div>
       <nav class="w-auto">
         <ul class="flex flex-row justify-start">
-          <li><a routerLink="/about">Sobre</a></li>
-          <li class="ml-10"><a routerLink="/services">Serviços</a></li>
-          <li class="ml-10"><a routerLink="/contact">Contato</a></li>
-          <li class="ml-10"><a routerLink="/blog">Blog</a></li>
+          <li>
+            <a
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['/']"
+              [routerLinkActive]="['is-active']"
+              >Home</a
+            >
+          </li>
+          <li class="ml-10">
+            <a [routerLink]="['/about']" [routerLinkActive]="['is-active']"
+              >Sobre</a
+            >
+          </li>
+          <li class="ml-10">
+            <a [routerLink]="['/services']" [routerLinkActive]="['is-active']"
+              >Serviços</a
+            >
+          </li>
+          <li class="ml-10">
+            <a [routerLink]="['/contact']" [routerLinkActive]="['is-active']"
+              >Contato</a
+            >
+          </li>
+          <li class="ml-10">
+            <a [routerLink]="['/blog']" [routerLinkActive]="['is-active']"
+              >Blog</a
+            >
+          </li>
         </ul>
       </nav>
     </div>
