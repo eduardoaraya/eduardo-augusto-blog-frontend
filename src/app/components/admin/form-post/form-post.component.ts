@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { finalize, Observable } from 'rxjs';
 import { CategoryInterface } from 'src/app/http/interfaces/category.interface';
@@ -34,11 +34,12 @@ export class FormPostComponent implements OnInit {
     private formBuilder: FormBuilder,
     private blogService: BlogService,
     private categoryService: CategoryService,
-    private router: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const postId = this.router.snapshot.paramMap.get('postId');
+    const postId = this.activatedRouter.snapshot.paramMap.get('postId');
     this.listCategories();
 
     if (postId) {
@@ -50,6 +51,14 @@ export class FormPostComponent implements OnInit {
           this.form.patchValue({ ...res.data, postId: res.data.id });
         });
     }
+  }
+
+  generateUrl(event: Event): void {
+    this.blogService
+      .generateUrl(this.form.get('title')?.value)
+      .subscribe(({ data }) => {
+        this.form.get('url')?.setValue(data);
+      });
   }
 
   toggleLoading(): void {
@@ -74,7 +83,12 @@ export class FormPostComponent implements OnInit {
     else
       this.blogService
         .createPost(body)
-        .pipe(finalize(() => this.toggleLoading()))
+        .pipe(
+          finalize(() => {
+            this.toggleLoading();
+            this.router.navigate(['/admin/posts']);
+          })
+        )
         .subscribe();
   }
 

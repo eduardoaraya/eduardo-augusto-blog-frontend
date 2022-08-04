@@ -20,6 +20,15 @@ export class BlogService extends HttpAbstract {
     return this.get<{ data: PostInterface[] }>('backoffice/posts');
   }
 
+  generateUrl(title: string) {
+    return this.post<{ title: string }, { data: string }>(
+      'backoffice/post/generate-url',
+      {
+        title,
+      }
+    );
+  }
+
   createPost(body: PostInterface) {
     return this.post<PostInterface, IPostCreateResult>(
       'backoffice/post',
