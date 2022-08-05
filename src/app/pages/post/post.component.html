@@ -1,15 +1,13 @@
 <app-template [menu]="{ fixed: true, animation: false, bgblack: true }">
   <div class="bg-black h-[90px]"></div>
-  <div class="blog-wrapper pt-[150px] min-h-[700px]">
+  <div class="blog-wrapper md:pt-[150px] sm:pt-[25px] min-h-[700px]">
     <div class="container mx-auto">
-      <div class="grid grid-cols-6">
+      <div class="md:grid grid-cols-6">
         <div class="w-full col-span-2">
           <app-blog-sidebar></app-blog-sidebar>
         </div>
         <div class="w-full col-span-4">
-          <div class="flex flex-col">
-            <app-blog-post [post]="post"></app-blog-post>
-          </div>
+          <app-blog-post [post]="post"></app-blog-post>
         </div>
       </div>
       <div *ngIf="!post && loading">

@@ -2,7 +2,7 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     screens: {
-      sm: "324px",
+      sm: "0px",
       md: "969px",
       lg: "1024px",
       xl: "1280px",
