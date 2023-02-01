@@ -1,0 +1,30 @@
+:host {
+    header {
+        color: #FFF;
+        transition: ease-in .3s;
+        .logo {
+            background: #FFF;
+            transition: ease-in .3s;
+        }
+        &.active {
+            background-color: #FFF;
+            color: inherit;
+            .logo {
+                background: transparent;
+            }
+        }
+        nav {
+            ul {
+                li a {
+                    padding: 7px 0px;
+                    font-weight: bold;
+                    transition: .3s;
+                    border-bottom: solid 1px transparent;
+                    &:hover, &.is-active {
+                        border-bottom: solid 1px #BBB;
+                    }
+                }
+            }
+        }
+    };
+}

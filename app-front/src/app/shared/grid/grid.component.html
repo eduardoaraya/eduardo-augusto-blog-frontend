@@ -1,0 +1,46 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th
+          scope="col"
+          class="px-6 py-3"
+          *ngFor="let head of gridModel.getColumns()"
+        >
+          {{ head.title }}
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-right"
+          *ngIf="gridModel.hasActions()"
+        >
+          #
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let row of gridModel.getRows()"
+        class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700"
+      >
+        <td
+          scope="row"
+          class="stop-stretching px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+          *ngFor="let col of gridModel.getColumns()"
+        >
+          {{ getRow(row, col) }}
+        </td>
+        <td *ngIf="gridModel.hasActions()" class="px-6 py-4 text-right flex-nowrap">
+          <div
+            *ngFor="let act of gridModel.getActions()"
+            (click)="act.click($event, row)"
+            class="font-medium hover:underline cursor-pointer select-none inline-block ml-5"
+            [ngClass]="getColor(act.color)"
+            >{{ act.title }}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

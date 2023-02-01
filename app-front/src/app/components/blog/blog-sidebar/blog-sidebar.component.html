@@ -1,0 +1,17 @@
+<div class="md:w-full">
+  <ul class="w-full p-3">
+    <li
+      (click)="filter(0)"
+      class="px-[10px] py-[5px] cursor-pointer hover:font-bold transition-all"
+    >
+      All
+    </li>
+    <li
+      *ngFor="let item of categories"
+      (click)="filter(item.id)"
+      class="px-[10px] py-[5px] cursor-pointer hover:font-bold transition-all"
+    >
+      {{ item.name }}
+    </li>
+  </ul>
+</div>

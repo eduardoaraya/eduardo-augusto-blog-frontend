@@ -1,0 +1,53 @@
+<div class="md:container mx-auto md:py-[105px] sm:py-[75px]">
+  <div class="w-full">
+    <h2 class="text-3xl font-bold text-center">Atuação</h2>
+  </div>
+  <div class="py-20 pt-5">
+    <div class="col-12">
+      <div class="flex flex-col mt-5">
+        <ng-container *ngFor="let service of serviceList">
+          <div class="flex sm:flex-col-reverse md:flex-row mt-20 sm:px-3">
+            <div class="md:w-full relative sm:p-5">
+              <h3 class="select-none text-3xl font-bold sm:mb-[45px] sm:hidden md:block">
+                {{ service.title }}
+              </h3>
+              <div class="flex justify-center items-center h-full">
+                <div
+                  *ngFor="let item of service.items"
+                  class="transition cursor-pointer md:pr-[35px] sm:pt-5 md:pb-[75px]"
+                  [ngClass]="{
+                    hidden: service.active !== item.title
+                  }"
+                >
+                <h3 class="outline-none select-none leading-10 text-3xl font-bold sm:mb-5 lg:hidden">
+                  {{ item.title }}
+                </h3>
+                  <p class="text-xl">
+                    {{ item.content }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex items-center">
+              <div class="w-full select-none flex md:flex-col sm:flex-nowrap md:py-[70px] sm:overflow-x-scroll md:overflow-x-visible">
+                <div
+                  *ngFor="let item of service.items"
+                  (click)="active(service, item)"
+                  class="flex-1 select-none md:my-5 sm:my-1 sm:mx-2 p-5  sm:min-w-[350px] flex flex-row border-2 border-gray-700 hover:bg-gray-700 hover:text-white transition cursor-pointer shadow"
+                  [ngClass]="{
+                    'bg-gray-700': service.active === item.title,
+                    'text-white': service.active === item.title
+                  }"
+                >
+                  <h4 class="flex-1 font-bold text-xl sm:text-md w-full">
+                    {{ item.title }}
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

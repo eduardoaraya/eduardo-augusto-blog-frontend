@@ -1,0 +1,88 @@
+<header
+  appHeader="menu"
+  [ngClass]="{
+    fixed: menu.fixed,
+    'bg-black': menu.bgblack,
+    'bg-white': mobileActive
+  }"
+  class="md:px-5 top-0 left-0 w-full h-[90px] flex z-50 sm:p-5 shadow"
+>
+  <div class="sm:hidden md:block md:container mx-auto w-full flex-1">
+    <div class="flex-1 h-full flex flex-row justify-between items-center">
+      <div class="logo">
+        <a [routerLink]="['/']"
+          ><img src="/assets/short-logo.png" class="max-w-[75px] h-full"
+        /></a>
+      </div>
+      <nav class="w-auto">
+        <ul class="flex flex-row justify-start">
+          <li>
+            <a [routerLink]="['/blog']" [routerLinkActive]="['is-active']"
+              >Blog</a
+            >
+          </li>
+          <li class="ml-10">
+            <a
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['/']"
+              [routerLinkActive]="['is-active']"
+              >Home</a
+            >
+          </li>
+          <li class="ml-10">
+            <a [routerLink]="['/about']" [routerLinkActive]="['is-active']"
+              >Sobre</a
+            >
+          </li>
+          <li class="ml-10">
+            <a [routerLink]="['/services']" [routerLinkActive]="['is-active']"
+              >Atuação</a
+            >
+          </li>
+          <li class="ml-10">
+            <a [routerLink]="['/contact']" [routerLinkActive]="['is-active']"
+              >Contato</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="md:hidden w-full flex flex-row justify-between items-center">
+    <div class="logo">
+      <a routerLink="/"
+        ><img src="/assets/short-logo.png" class="max-w-[75px] h-full"
+      /></a>
+    </div>
+    <div
+      (click)="toggleMobile()"
+      class="bg-white p-3 rounded cursor-pointer shadow active:shadow-none w-[50px] h-[50px]"
+    >
+      <img class="h-full select-none" src="assets/mobile-menu.svg" alt="" />
+    </div>
+  </div>
+</header>
+<nav
+  class="w-full h-full fixed top-[90px] left-0 z-50 transition-[0.5ms] bg-white"
+  [ngClass]="{
+    hidden: !mobileActive
+  }"
+>
+  <ul class="flex flex-col justify-start pt-5">
+    <li class="mx-5 my-2 py-3 px-2 rounded flex">
+      <a class="flex-1" routerLink="/">Home</a>
+    </li>
+    <li class="mx-5 my-2 py-3 px-2 rounded flex">
+      <a class="flex-1" routerLink="/about">Sobre</a>
+    </li>
+    <li class="mx-5 my-2 py-3 px-2 rounded flex">
+      <a class="flex-1" routerLink="/services">Atuação</a>
+    </li>
+    <li class="mx-5 my-2 py-3 px-2 rounded flex">
+      <a class="flex-1" routerLink="/contact">Contato</a>
+    </li>
+    <li class="mx-5 my-2 py-3 px-2 rounded flex">
+      <a class="flex-1" routerLink="/blog">Blog</a>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,19 @@
+<div class="p-2" *ngIf="category" class="flex items-center justify-between">
+  <h3 class="text-1xl uppercase font-bold font-sans">
+    Atualizando: {{ category.name }}
+  </h3>
+  <div class="p-5">
+    <button (click)="selectData(null)">Cancelar</button>
+  </div>
+</div>
+<app-form-category
+  (submit)="submit($event)"
+  [category]="category"
+></app-form-category>
+<div class="max-h-[600px] overflow-y-auto">
+  <app-grid-category
+    [categories]="categories"
+    (selectData)="selectData($event)"
+    (deleteCategory)="deleteCategory($event)"
+  ></app-grid-category>
+</div>
