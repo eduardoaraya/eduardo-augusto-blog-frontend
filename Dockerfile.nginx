@@ -1,5 +1,5 @@
 FROM node:16-alpine as Builder
-ARG NODE_ENV=develop
+ARG NODE_ENV=production
 COPY ./app-front/ /var/app/
 COPY ./app-front/angular.json /var/app/angular.json
 WORKDIR /var/app/
