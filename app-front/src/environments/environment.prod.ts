@@ -1,6 +1,6 @@
-declare const process: { env?: { [key: string]: string } };
+declare const process: { env: { [key: string]: string } };
 
 export const environment = {
   production: true,
-  api: 'https://eduardo-augusto-project-hurll5kjwq-uc.a.run.app/',
+  api: process.env["URL_API"] ?? 'http://localhost:8080/'
 };
