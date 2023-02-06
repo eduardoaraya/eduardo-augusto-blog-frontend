@@ -1,6 +1,6 @@
-declare const process: { env: { [key: string]: string } };
 
+// FILE GENERATED /var/app/src/bin/var/app/src/bin/env-generator.js
 export const environment = {
-  production: true,
-  api: process.env["URL_API"] ?? 'http://localhost:8080/'
+  production: false,
+  api: "http://localhost:8080/production/"
 };
