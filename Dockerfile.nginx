@@ -1,15 +1,19 @@
 FROM node:16-alpine as Builder
 ARG NODE_ENV=develop
+ARG URL_API
 COPY ./app-front/ /var/app/
 COPY ./app-front/angular.json /var/app/angular.json
 WORKDIR /var/app/
 RUN yarn global add @angular/cli@13.3.3 --prefix=/usr/local
-RUN yarn install && ng build -c
+RUN yarn install \
+    && yarn build \
+    && mv ./dist/ /var/static/ \
+    && rm -rf ./*
 
 FROM nginx:1.23.2-alpine as Web
 WORKDIR /var/www/
 EXPOSE 8080
 RUN rm -rf /usr/share/nginx/
 COPY ./configs/nginx/ /etc/nginx/conf.d/
-COPY --from=Builder /var/app/dist/frontend/browser /var/www/
+COPY --from=Builder /var/static/frontend/browser /var/www/
 CMD ["nginx", "-g" , "daemon off;"]
