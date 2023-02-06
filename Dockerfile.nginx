@@ -1,12 +1,18 @@
 FROM node:16-alpine as Builder
 ARG NODE_ENV=develop
 ARG URL_API
-COPY ./app-front/ /var/app/
-COPY ./app-front/angular.json /var/app/angular.json
 WORKDIR /var/app/
-RUN yarn global add @angular/cli@13.3.3 --prefix=/usr/local
-RUN yarn install \
-    && yarn build \
+COPY ./app-front/ .
+
+RUN node ./src/bin/env-generator.js
+
+RUN yarn global add \
+    @angular/cli@13.3.3 \ 
+    --prefix=/usr/local \
+    && yarn \
+    && yarn add @angular-devkit/build-angular@13.3.3
+
+RUN ng build -c \
     && mv ./dist/ /var/static/ \
     && rm -rf ./*
 

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "node ./src/bin/env-generator.js && ng build -c",
+    "build": "ng build -c",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "ssr": "node ./server/index.js"
