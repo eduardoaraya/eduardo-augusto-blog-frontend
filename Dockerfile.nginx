@@ -1,6 +1,6 @@
 FROM node:16-alpine as Builder
 ARG NODE_ENV=develop
-ARG URL_API
+ARG URL_API=https://eduardo-augusto-blog-backend-hurll5kjwq-uc.a.run.app/
 ENV URL_API=${URL_API}
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /var/app/
