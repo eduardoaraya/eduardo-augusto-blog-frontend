@@ -1,10 +1,12 @@
 FROM node:16-alpine as Builder
 ARG NODE_ENV=develop
 ARG URL_API
+ENV URL_API=${URL_API}
+ENV NODE_ENV=${NODE_ENV}
 WORKDIR /var/app/
 COPY ./app-front/ .
 
-RUN node ./src/bin/env-generator.js
+RUN NODE_ENV=${NODE_ENV} URL_API=${URL_API} node ./src/bin/env-generator.js
 
 RUN yarn global add \
     @angular/cli@13.3.3 \ 

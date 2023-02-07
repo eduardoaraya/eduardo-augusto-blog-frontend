@@ -1,6 +1,6 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
- 
+// TODO: Remove all environment prints on console 
 console.log(process.env);
 
 const envContent = `
