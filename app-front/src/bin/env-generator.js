@@ -10,7 +10,7 @@ export const environment = {
 `;
 
 fs.writeFile(path.join(__dirname, "..", "environments", "environment.prod.ts"), envContent)
-  .then(() => process.stdout.write("Environments genereted! \n"))
+  .then(() => process.stdout.write(`Environments genereted! \n ${envContent}`))
   .catch((err) => {
     process.stderr.write(err.toString());
     process.exit(1)
