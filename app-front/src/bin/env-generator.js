@@ -1,8 +1,8 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
-
+  
 const envContent = `
-// FILE GENERATED ${path.join(__dirname, __filename)}
+// FILE GENERATED ${path.join(__dirname, __filename)}:${(new Date().toTimeString())}
 export const environment = {
   production: ${process.env["NODE_ENV"] === 'production'},
   api: "${process.env["URL_API"] ?? "http://localhost:8080/production/"}"

@@ -1,9 +1,9 @@
 steps:
   - name: gcr.io/cloud-builders/docker
     env: 
-      - NODE_ENV=production
-      - PORT=8080
-      - URL_API=$_URL_API
+      - 'NODE_ENV=production'
+      - 'PORT=8080'
+      - 'URL_API=${_URL_API}'
     args:
       - build
       - '-f'
