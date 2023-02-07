@@ -3,7 +3,7 @@ steps:
     env: 
       - 'NODE_ENV=production'
       - 'PORT=8080'
-      - 'URL_API=${_URL_API}'
+      - 'URL_API=$_URL_API'
     args:
       - build
       - '-f'
